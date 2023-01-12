@@ -14,4 +14,16 @@ import java.util.List;
 public class Memoservice {
     private final MemoRepository memoRepository;
 
+    @Transactional
+    public Memo createMemo(MemoRequestDto requestDto) {
+        Memo memo = new Memo(requestDto)
+        memoRepository.save(memo);
+        return memo;
+    }
+    @Transactional
+        public List<Memo> getMemos(){
+        return memoRepository.findAllByOrderByModifiedAtDesc();
+    }
+
+}
 }
