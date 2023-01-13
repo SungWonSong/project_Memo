@@ -21,9 +21,20 @@ public class Memoservice {
         return memo;
     }
     @Transactional
-        public List<Memo> getMemos(){
+    public List<Memo> getMemos(){
         return memoRepository.findAllByOrderByModifiedAtDesc();
     }
-
-}
+    @Transactional
+    public update(Long id, MemoRequestDto requestDto) {
+        Memo memo = memoRepository.findById(id).orElseThrow(
+                () -> new IllegalArgumentException("아이디가 존재하지 않습니다")
+       );
+        memo.update(requestDto);
+        return memo.getId();
+    }
+    @Transactional
+    public Long deleteMemo(Long id){
+        memoRepository.deleteById(id);
+        return id;
+    }
 }

@@ -19,15 +19,22 @@ public class Memocontroller {
         return new ModelAndView("index");
     }
 
-    @PutMapping("/api/memos")
-    public Memo memo
-    createMemo(@RequestBody MemoRequestDto requestDto) {
-        return memoService.createMemo();
+    @PostMapping ("/api/memos")
+    public Memo createMemo(@RequestBody MemoRequestDto requestDto) {
+        return memoService.createMemo(requestDto);
     }
 
     @GetMapping("/api/memos")
     public List<Memo> getMemos() {
         return memoService.getMemos();
+    }
+    @PutMapping("/api/memos/{id}")
+    public Memo updateMemo(@PathVariable Long id, @RequestBody MemoRequestDto requestDto){
+        return memoService.update(id,requestDto);
+    }
+    @DeleteMapping("/api/memos/{id}")
+    public Memo deleteMemo(@PathVariable Long id){
+        return memoService.delete(id);
     }
 }
 
