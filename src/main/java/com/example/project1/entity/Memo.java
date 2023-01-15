@@ -1,7 +1,6 @@
 package com.example.project1.entity;
 
 import com.example.project1.dto.MemoRequestDto;
-import com.example.project1.entity.Timestamped;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -25,10 +24,6 @@ public class Memo extends Timestamped {
     @Column(nullable = false)
     private String contents;
 
-    public Memo(String username, String contents) {
-        this.username = username;
-        this.contents = contents;
-    }
 
     public Memo(MemoRequestDto requestDto) {
         this.username = requestDto.getUsername();
