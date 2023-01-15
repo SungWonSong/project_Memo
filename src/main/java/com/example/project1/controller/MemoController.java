@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -27,6 +28,10 @@ public class MemoController {
     @GetMapping("/api/memos")
     public List<Memo> getMemos() {
         return memoService.getMemos();
+    }
+    @GetMapping("/api/memos/{id}")
+    public Optional<Memo> getMemo(@PathVariable Long id) {
+        return memoService.getMemo(id);
     }
     @PutMapping("/api/memos/{id}")
     public Long updateMemo(@PathVariable Long id, @RequestBody MemoRequestDto requestDto){

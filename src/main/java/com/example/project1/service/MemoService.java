@@ -3,11 +3,14 @@ package com.example.project1.service;
 import com.example.project1.dto.MemoRequestDto;
 import com.example.project1.entity.Memo;
 import com.example.project1.repository.MemoRepository;
+import jakarta.persistence.Id;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -22,7 +25,11 @@ public class MemoService {
     }
     @Transactional
     public List<Memo> getMemos(){
-        return memoRepository.findAllByOrderByModifiedAtDesc();
+        return memoRepository.findAllByOrderByCreatedAtDesc();
+    }
+    @Transactional
+    public Optional<Memo> getMemo(Long id){
+        return memoRepository.findById(id);
     }
     @Transactional
     public Long update(Long id, MemoRequestDto requestDto) {
