@@ -23,25 +23,36 @@ public class MemoService {
         memoRepository.save(memo);
         return memo;
     }
+
     @Transactional
-    public List<Memo> getMemos(){
+    public List<Memo> getMemos() {
         return memoRepository.findAllByOrderByCreatedAtDesc();
     }
+
     @Transactional
-    public Optional<Memo> getMemo(Long id){
+    public Optional<Memo> getMemo(Long id) {
         return memoRepository.findById(id);
     }
+
     @Transactional
     public Long update(Long id, MemoRequestDto requestDto) {
         Memo memo = memoRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("아이디가 존재하지 않습니다")
-       );
-        memo.update(requestDto);
-        return memo.getId();
-    }
-    @Transactional
-    public Long deleteMemo(Long id){
-        memoRepository.deleteById(id);
+        );
+        if (requestDto.getPasswords().equals(memo.getPasswords())) {
+            memo.update(requestDto);
+            return memo.getId();
+        }
+        else{
+            System.out.println("비밀번호가 일치하지 않습니다");
+        }
+
         return id;
     }
-}
+        @Transactional
+        public Long deleteMemo (Long id){
+            memoRepository.deleteById(id);
+            return id;
+        }
+    }
+
