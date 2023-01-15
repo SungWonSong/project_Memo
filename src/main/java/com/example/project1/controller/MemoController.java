@@ -2,7 +2,7 @@ package com.example.project1.controller;
 
 import com.example.project1.dto.MemoRequestDto;
 import com.example.project1.entity.Memo;
-import com.example.project1.service.Memoservice;
+import com.example.project1.service.MemoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -11,8 +11,8 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-public class Memocontroller {
-    private final Memoservice memoService;
+public class MemoController {
+    private final MemoService memoService;
 
     @GetMapping("/")
     public ModelAndView home() {
@@ -29,12 +29,12 @@ public class Memocontroller {
         return memoService.getMemos();
     }
     @PutMapping("/api/memos/{id}")
-    public Memo updateMemo(@PathVariable Long id, @RequestBody MemoRequestDto requestDto){
+    public Long updateMemo(@PathVariable Long id, @RequestBody MemoRequestDto requestDto){
         return memoService.update(id,requestDto);
     }
     @DeleteMapping("/api/memos/{id}")
-    public Memo deleteMemo(@PathVariable Long id){
-        return memoService.delete(id);
+    public Long deleteMemo(@PathVariable Long id){
+        return memoService.deleteMemo(id);
     }
 }
 
